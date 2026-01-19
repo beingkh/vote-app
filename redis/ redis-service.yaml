@@ -1,18 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-service
+  name: redis
   namespace: redis
   labels:
     kubernetes.io/part-of: vote-app
     kubernetes.io/app: redis
     kubernetes.io/component: redis
-    kubernetes.io/manual: "true"
 spec:
   type: ClusterIP
   ports:
-  - name: "redis-service"
-    port: 6379
+  - port: 6379
     targetPort: 6379
   selector:
     kubernetes.io/part-of: vote-app
