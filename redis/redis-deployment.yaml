@@ -17,16 +17,17 @@ spec:
       kubernetes.io/component: redis
   template:
     metadata:
-      kubernetes.io/part-of: vote-app
-      kubernetes.io/app: redis
-      kubernetes.io/component: redis
+      labels:
+        kubernetes.io/part-of: vote-app
+        kubernetes.io/app: redis
+        kubernetes.io/component: redis
     spec:
       containers:
-      - image: dockersamples/examplevotingapp_result
-        name: result
+      - image: redis:alpine
+        name: redis
         ports:
-        - containerPort: 80
-          name: result
+        - containerPort: 6379
+          name: redis
         resources:
           limits:
             memory: "128Mi"
