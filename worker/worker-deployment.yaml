@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  namespace: worker
+  labels:
+    kubernetes.io/part-of: vote-app
+    kubernetes.io/app: worker
+    kubernetes.io/component: worker
+    kubernetes.io/manual: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      kubernetes.io/part-of: vote-app
+      kubernetes.io/app: worker
+      kubernetes.io/component: worker
+      kubernetes.io/manual: "true"
+  template:
+    metadata:
+      labels:
+        kubernetes.io/part-of: vote-app
+        kubernetes.io/app: worker
+        kubernetes.io/component: worker
+        kubernetes.io/manual: "true"
+    spec:
+      containers:
+      - image: dockersamples/examplevotingapp_worker
+        name: worker
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"

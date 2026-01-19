@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: redis
+  labels:
+    kubernetes.io/part-of: vote-app
+    kubernetes.io/app: redis
+    kubernetes.io/component: redis
+    kubernetes.io/manual: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      kubernetes.io/part-of: vote-app
+      kubernetes.io/app: redis
+      kubernetes.io/component: redis
+  template:
+    metadata:
+      kubernetes.io/part-of: vote-app
+      kubernetes.io/app: redis
+      kubernetes.io/component: redis
+    spec:
+      containers:
+      - image: dockersamples/examplevotingapp_result
+        name: result
+        ports:
+        - containerPort: 80
+          name: result
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"

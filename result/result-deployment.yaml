@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-deployment
+  namespace: result
+  labels:
+    kubernetes.io/part-of: vote-app
+    kubernetes.io/app: result
+    kubernetes.io/component: result
+    kubernetes.io/manual: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      kubernetes.io/part-of: vote-app
+      kubernetes.io/app: result
+      kubernetes.io/component: result
+      kubernetes.io/manual: "true"
+  template:
+    metadata:
+      labels:
+        kubernetes.io/part-of: vote-app
+        kubernetes.io/app: result
+        kubernetes.io/component: result
+        kubernetes.io/manual: "true"
+    spec:
+      containers:
+      - image: dockersamples/examplevotingapp_result
+        name: result
+        ports:
+        - containerPort: 80
+          name: result
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"

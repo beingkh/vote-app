@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vote
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: result
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: redis
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: worker
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: db

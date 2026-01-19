@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+  labels:
+    kubernetes.io/part-of: vote-app
+    kubernetes.io/app: db
+    kubernetes.io/component: db
+    kubernetes.io/manual: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      kubernetes.io/part-of: vote-app
+      kubernetes.io/app: db
+      kubernetes.io/component: db
+      kubernetes.io/manual: "true"
+  template:
+    metadata:
+      labels:
+        kubernetes.io/part-of: vote-app
+        kubernetes.io/app: db
+        kubernetes.io/component: db
+        kubernetes.io/manual: "true"
+    spec:
+      containers:
+      - image: postgres:15-alpine
+        name: postgres
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        ports:
+        - containerPort: 5432
+          name: postgres
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: db-data
+      volumes:
+      - name: db-data
+        emptyDir: {}
